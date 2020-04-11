@@ -63,7 +63,7 @@ mapfile -t CONFIG_VOLUMES < <(configure_volumes)
 mapfile -t envs < <(ruby -e 'ENV.each {|key,_| if not ["PATH","USER","HOME","GOROOT","LC_ALL"].include?(key) then puts "-e #{key}" end}')
 
 #using eval to expand variables is plain wrong, but this is only way to make it work against shellcheck SC2086
-eval docker run --rm \
+eval sudo docker run privileged --rm \
     -v "$(pwd):/build" \
     "${CONFIG_VOLUMES[@]}" \
     -e "CC=$CC" \
